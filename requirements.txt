@@ -1,3 +1,5 @@
 github-webhook
 flask
 six
+PyGithub
+cryptography
