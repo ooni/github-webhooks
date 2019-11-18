@@ -11,8 +11,8 @@ webhook = Webhook(app) # Defines '/postreceive' endpoint
 def on_push(data):
     print("Got push with: {0}".format(data))
 
-@webhook.hook()
-def issues(data):
+@webhook.hook(event_type="issues")
+def on_issues(data):
     print("Got issue with: {0}".format(data))
     pprint(data)
 
