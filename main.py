@@ -51,8 +51,6 @@ app = Flask(__name__)
 webhook = Webhook(app)  # Defines '/postreceive' endpoint
 
 GH_PRIVATE_KEY_PATH = os.environ["GH_PRIVATE_KEY_PATH"]
-
-
 def get_github():
     with open(GH_PRIVATE_KEY_PATH) as in_file:
         gh_integration = GithubIntegration(
@@ -93,12 +91,11 @@ def build_repo_project_map(g):
             }
     return repo_project_map
 
-
-gh = get_github()
-repo_map = build_repo_project_map(gh)
-
-
 def on_issue_opened(data):
+    # TODO this should not be done on every hook trigger
+    gh = get_github()
+    repo_map = build_repo_project_map(gh)
+
     repo_name = data["repository"]["name"]
     issue_id = data["issue"]["id"]
     if repo_name not in repo_map:
